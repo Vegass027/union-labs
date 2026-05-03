@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  # ── API (Node.js / Fastify) ─────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      args:
+        - NODE_ENV=production
+    container_name: agency_api
+    restart: always
+    env_file: .env.prod
+    environment:
+      NODE_ENV: production
+    expose:
+      - "3001"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - root_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.agency-api.rule=Host(`api.union-labs.pro`)"
+      - "traefik.http.routers.agency-api.entrypoints=websecure"
+      - "traefik.http.routers.agency-api.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.agency-api.loadbalancer.server.port=3001"
+
+  # ── Web (Next.js) ──────────────────────────────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        - NODE_ENV=production
+    container_name: agency_web
+    restart: always
+    env_file: .env.prod
+    environment:
+      NODE_ENV: production
+    expose:
+      - "3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - root_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.agency-web.rule=Host(`union-labs.pro`)"
+      - "traefik.http.routers.agency-web.entrypoints=websecure"
+      - "traefik.http.routers.agency-web.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.agency-web.loadbalancer.server.port=3000"
+
+networks:
+  root_default:
+    external: true
