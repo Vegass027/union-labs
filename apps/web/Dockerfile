@@ -47,7 +47,6 @@ RUN adduser --system --uid 1001 nextjs
 # Copy built artifacts
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/package.json ./
 
 USER nextjs
