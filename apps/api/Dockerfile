@@ -23,8 +23,8 @@ COPY apps/api ./apps/api
 
 RUN pnpm --filter api build
 
-# Remove dev dependencies
-RUN cd apps/api && pnpm prune --prod
+# Remove dev dependencies at monorepo root
+RUN pnpm prune --prod
 
 # ── Production stage ──────────────────────────────────────────────────────────
 FROM base AS runner
@@ -36,8 +36,8 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 fastify
 
-# Copy only API-specific dependencies (not entire monorepo node_modules)
-COPY --from=builder --chown=fastify:nodejs /app/apps/api/node_modules ./node_modules
+# Copy production dependencies from monorepo root + api dist
+COPY --from=builder --chown=fastify:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=fastify:nodejs /app/apps/api/dist ./dist
 COPY --from=builder --chown=fastify:nodejs /app/apps/api/package.json ./
 
