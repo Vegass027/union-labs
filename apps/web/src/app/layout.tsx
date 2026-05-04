@@ -1,12 +1,15 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
 
-const interHeading = Inter({subsets:['latin'],variable:'--font-heading'});
-
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = localFont({
+  src: '../../public/fonts/InterVariable.woff2',
+  variable: '--font-sans',
+  display: 'swap',
+  weight: '100 900',
+});
 
 export const metadata: Metadata = {
   title: 'Agency Platform',
@@ -19,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ru" suppressHydrationWarning className={cn("font-sans", inter.variable, interHeading.variable)}>
+    <html lang="ru" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
       <body className="relative">
         <ThemeProvider
           attribute="class"

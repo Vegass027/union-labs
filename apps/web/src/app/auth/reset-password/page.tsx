@@ -7,10 +7,10 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function ResetPasswordPage() {
   const router = useRouter()
-  const supabase = createClient()
 
   useEffect(() => {
     const checkAuth = async () => {
+      const supabase = createClient()
       const { data: { user }, error } = await supabase.auth.getUser()
       
       if (error || !user) {
@@ -23,6 +23,7 @@ export default function ResetPasswordPage() {
   }, [router])
 
   const handleSuccess = async () => {
+    const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     const role = user?.app_metadata?.role
     const map: Record<string, string> = { owner: '/dashboard', manager: '/manager', client: '/client' }
