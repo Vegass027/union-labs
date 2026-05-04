@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import { AuthTerminal, TerminalInput, TerminalButton } from '@/components/auth'
 
 type Step = 'email' | 'password'
 
-export default function LoginPage() {
+function LoginContent() {
   const searchParams = useSearchParams()
   const [step, setStep] = useState<Step>('email')
   const [email, setEmail] = useState('')
@@ -279,5 +279,13 @@ export default function LoginPage() {
         </p>
       </div>
     </AuthTerminal>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginContent />
+    </Suspense>
   )
 }
