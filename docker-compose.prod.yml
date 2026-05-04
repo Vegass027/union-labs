@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   # ── API (Node.js / Fastify) ─────────────────────────────────────────────────
   api:
@@ -46,8 +44,15 @@ services:
     env_file: .env.prod
     environment:
       NODE_ENV: production
+      PORT: "3000"
     expose:
       - "3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     depends_on:
       api:
         condition: service_started
