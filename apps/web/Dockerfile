@@ -17,8 +17,19 @@ RUN pnpm install --frozen-lockfile
 
 # ── Build stage ───────────────────────────────────────────────────────────────
 FROM deps AS builder
+COPY tsconfig.json ./
 COPY packages ./packages
 COPY apps/web ./apps/web
+
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_WEB_URL
+
+ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_WEB_URL=$NEXT_PUBLIC_WEB_URL
 
 RUN pnpm --filter web build
 

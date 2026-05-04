@@ -37,6 +37,10 @@ services:
       dockerfile: apps/web/Dockerfile
       args:
         - NODE_ENV=production
+        - NEXT_PUBLIC_SUPABASE_URL=https://bonxmyqbrekbpokgozmh.supabase.co
+        - NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvbnhteXFicmVrYnBva2dvem1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2ODI2NDgsImV4cCI6MjA5MDI1ODY0OH0.XBThLdL82sf4xMpEaktVYw9K37kQNY0ZTH9Xo2eFzNQ
+        - NEXT_PUBLIC_API_URL=https://api.union-labs.pro
+        - NEXT_PUBLIC_WEB_URL=https://union-labs.pro
     container_name: agency_web
     restart: always
     env_file: .env.prod

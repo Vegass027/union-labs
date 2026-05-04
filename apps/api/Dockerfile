@@ -17,13 +17,14 @@ RUN pnpm install --frozen-lockfile
 
 # ── Build stage ───────────────────────────────────────────────────────────────
 FROM deps AS builder
+COPY tsconfig.json ./
 COPY packages ./packages
 COPY apps/api ./apps/api
 
 RUN pnpm --filter api build
 
 # Remove dev dependencies
-RUN pnpm --filter api prune --prod
+RUN cd apps/api && pnpm prune --prod
 
 # ── Production stage ──────────────────────────────────────────────────────────
 FROM base AS runner
