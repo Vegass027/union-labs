@@ -8,13 +8,14 @@ interface RoleOption {
   symbol: string;
   label: string;
   href: string;
+  color?: string;
 }
 
 const roles: RoleOption[] = [
   { symbol: "◉", label: "Хочу автоматизировать процессы в бизнесе", href: "/describe-idea" },
   { symbol: "◎", label: "Хочу зарабатывать приводя клиентов", href: "/earn" },
   { symbol: "◎", label: "Я разработчик, хочу в команду", href: "/dev-mode" },
-  { symbol: "◈", label: "Войти в кабинет", href: "/login" },
+  { symbol: "◈", label: "Войти в кабинет", href: "/login", color: 'hsl(270 60% 65%)' },
 ];
 
 const HeroSection = () => {
@@ -30,9 +31,18 @@ const HeroSection = () => {
         >
           <TerminalWindow title="~/welcome">
             <div className="space-y-5">
-              <div className="text-terminal-comment text-base sm:text-lg">
-                <span className="text-terminal-comment">// </span>
-                <span className="text-foreground/70">что вас сюда привело?</span>
+              <video
+                src="/videos/welcome.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full rounded-md"
+              />
+
+              <div className="text-base sm:text-lg">
+                <span style={{ color: 'hsl(35 80% 60%)' }}>-&gt; </span>
+                <span style={{ color: 'hsl(35 80% 60%)' }}>что вас сюда привело?</span>
               </div>
 
               <div className="space-y-2">
@@ -45,7 +55,10 @@ const HeroSection = () => {
                       <span className="text-terminal-comment text-sm mt-0.5 select-none">
                         {role.symbol}
                       </span>
-                      <span className="text-base sm:text-lg font-medium text-foreground/80 group-hover:text-primary group-hover:text-glow-sm transition-colors">
+                      <span
+                        className="text-base sm:text-lg font-medium text-foreground/80 group-hover:text-primary group-hover:text-glow-sm transition-colors"
+                        style={role.color ? { color: role.color } : undefined}
+                      >
                         {role.label}
                       </span>
                     </motion.div>

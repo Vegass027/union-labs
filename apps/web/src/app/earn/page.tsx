@@ -15,15 +15,15 @@ export const metadata = {
 }
 
 const managerTabs = [
-  { id: "m-pain", label: "problem.ts", icon: "🔴" },
-  { id: "m-scale", label: "scale.ts", icon: "📊" },
-  { id: "m-frame", label: "mindset.ts", icon: "💡" },
-  { id: "m-steps", label: "pipeline.ts", icon: "🤖" },
-  { id: "m-faq", label: "faq.ts", icon: "💬" },
-  { id: "m-social", label: "reviews.ts", icon: "⭐" },
-  { id: "m-money", label: "calculator.ts", icon: "💰" },
-  { id: "m-infra", label: "features.ts", icon: "🧑‍💻" },
-  { id: "m-cta", label: "start.ts", icon: "⚡" },
+  { id: "m-pain", label: "проблема", icon: "🔴" },
+  { id: "m-scale", label: "масштаб", icon: "📊" },
+  { id: "m-frame", label: "мышление", icon: "💡" },
+  { id: "m-steps", label: "пайплайн", icon: "🤖" },
+  { id: "m-faq", label: "вопросы", icon: "💬" },
+  { id: "m-social", label: "отзывы", icon: "⭐" },
+  { id: "m-money", label: "калькулятор", icon: "💰" },
+  { id: "m-infra", label: "возможности", icon: "🧑‍💻" },
+  { id: "m-cta", label: "старт", icon: "⚡" },
 ]
 
 export default function EarnPage() {

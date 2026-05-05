@@ -18,6 +18,12 @@ export function AuthTerminal({ title, children, error, success }: AuthTerminalPr
       <div className="relative z-10 w-full max-w-2xl mx-4">
         <TerminalWindow title={title}>
           <div className="space-y-6">
+            <img
+              src="/images/login-bg.png"
+              alt=""
+              className="w-full rounded-md"
+            />
+
             {error && (
               <div className="text-sm font-mono text-red-400">
                 <span className="font-bold">[error]</span> {error}

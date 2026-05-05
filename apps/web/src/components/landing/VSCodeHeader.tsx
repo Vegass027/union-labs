@@ -90,7 +90,7 @@ const VSCodeHeader = ({ tabs = defaultTabs, defaultActiveTab }: VSCodeHeaderProp
             <span className="w-1.5 h-3.5 bg-primary animate-blink inline-block ml-0.5" />
           </Link>
         </div>
-        <Link href="/login">
+        <Link href="/login" className="hidden sm:block">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -127,6 +127,12 @@ const VSCodeHeader = ({ tabs = defaultTabs, defaultActiveTab }: VSCodeHeaderProp
             )}
           </button>
         ))}
+        <Link href="/login" className="sm:hidden shrink-0">
+          <div className="flex items-center gap-1.5 px-4 py-2 font-mono text-xs whitespace-nowrap border-r border-border bg-terminal-header text-primary hover:bg-primary/10 transition-colors">
+            <span className="text-[10px]">⚡</span>
+            <span>$ login</span>
+          </div>
+        </Link>
       </div>
     </header>
   )

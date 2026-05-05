@@ -17,16 +17,16 @@ export const metadata = {
 }
 
 const clientTabs = [
-  { id: "c-hero", label: "index.tsx", icon: "⚡" },
-  { id: "c-pain", label: "pain.ts", icon: "🔴" },
-  { id: "c-loss", label: "loss.ts", icon: "📉" },
-  { id: "c-process", label: "pipeline.ts", icon: "🤖" },
-  { id: "c-cases", label: "cases.ts", icon: "📊" },
-  { id: "c-reviews", label: "reviews.ts", icon: "⭐" },
-  { id: "c-services", label: "services.ts", icon: "🛠" },
-  { id: "c-compare", label: "compare.ts", icon: "⚖️" },
-  { id: "c-faq", label: "faq.ts", icon: "💬" },
-  { id: "c-cta", label: "start.ts", icon: "🚀" },
+  { id: "c-hero", label: "главная", icon: "⚡" },
+  { id: "c-pain", label: "боли", icon: "🔴" },
+  { id: "c-loss", label: "потери", icon: "📉" },
+  { id: "c-process", label: "пайплайн", icon: "🤖" },
+  { id: "c-cases", label: "кейсы", icon: "📊" },
+  { id: "c-reviews", label: "отзывы", icon: "⭐" },
+  { id: "c-services", label: "услуги", icon: "🛠" },
+  { id: "c-compare", label: "сравнение", icon: "⚖️" },
+  { id: "c-faq", label: "вопросы", icon: "💬" },
+  { id: "c-cta", label: "старт", icon: "🚀" },
 ]
 
 export default function DescribeIdeaPage() {

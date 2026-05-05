@@ -8,8 +8,8 @@ export const metadata = {
 }
 
 const devTabs = [
-  { id: "dev-status", label: "status.ts", icon: "🚧" },
-  { id: "dev-form", label: "apply.ts", icon: "📝" },
+  { id: "dev-status", label: "статус", icon: "🚧" },
+  { id: "dev-form", label: "заявка", icon: "📝" },
 ]
 
 export default function DevModePage() {
