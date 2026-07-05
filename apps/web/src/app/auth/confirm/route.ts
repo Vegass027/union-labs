@@ -17,7 +17,8 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get('type') as EmailOtpType | null
   const next = searchParams.get('next') || '/'
 
-  const redirectTo = request.nextUrl.clone()
+  const baseUrl = process.env.NEXT_PUBLIC_WEB_URL || 'https://union-labs.pro'
+  const redirectTo = new URL(baseUrl)
   redirectTo.pathname = next
   redirectTo.searchParams.delete('token_hash')
   redirectTo.searchParams.delete('type')
