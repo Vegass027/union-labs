@@ -13,7 +13,7 @@ export async function registerUser(input: RegisterInput): Promise<{ requiresEmai
     email,
     password,
     options: {
-      data: { role, full_name: fullName },
+      data: { role, full_name: fullName, password_set: true },
     }
   })
 

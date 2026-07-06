@@ -37,7 +37,11 @@ export async function GET(request: NextRequest) {
         const fullName = data.user.user_metadata?.full_name || data.user.email?.split('@')[0] || ''
 
         await supabaseAdmin.auth.admin.updateUserById(data.user.id, {
-          app_metadata: { role }
+          app_metadata: { role },
+          user_metadata: {
+            full_name: fullName,
+            ...(type === 'signup' ? { password_set: true } : {}),
+          },
         })
 
         await supabaseAdmin

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { TerminalInput } from '@/components/auth'
 import TerminalWindow from '@/components/landing/TerminalWindow'
@@ -13,8 +13,14 @@ export function SetPasswordModal({ onSuccess }: { onSuccess: () => void }) {
   const [confirm, setConfirm] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [countdown, setCountdown] = useState(5)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const supabase = createClient()
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [])
 
   const handlePasswordSubmit = () => {
     if (password.length < 8) {
@@ -54,16 +60,9 @@ export function SetPasswordModal({ onSuccess }: { onSuccess: () => void }) {
       setLoading(false)
       setStep('success')
 
-      const countdownInterval = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev === 1) {
-            clearInterval(countdownInterval)
-            onSuccess()
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
+      timeoutRef.current = setTimeout(() => {
+        onSuccess()
+      }, 500)
 
     } catch (err) {
       setError('Новый пароль должен отличаться от старого')
@@ -99,10 +98,7 @@ export function SetPasswordModal({ onSuccess }: { onSuccess: () => void }) {
             {step === 'success' && (
               <div className="space-y-4">
                 <div className="text-sm font-mono text-green-400">
-                  <span className="font-bold">[success]</span> Пароль успешно изменён
-                </div>
-                <div className="text-sm font-mono text-muted-foreground">
-                  <span className="text-terminal-comment">//</span> Модалка закроется через {countdown} сек...
+                  <span className="font-bold">[success]</span> Пароль установлен
                 </div>
               </div>
             )}

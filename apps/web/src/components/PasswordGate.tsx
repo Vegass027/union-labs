@@ -33,7 +33,6 @@ export function PasswordGate() {
   }
 
   return <SetPasswordModal onSuccess={() => {
-    // PasswordGate только проверяет password_set, не делает редиректы
-    // Редирект происходит в SetPasswordModal через onSuccess callback
+    setNeedsPassword(false)
   }} />
 }
