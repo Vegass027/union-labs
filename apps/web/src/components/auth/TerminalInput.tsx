@@ -82,7 +82,7 @@ export function TerminalInput({
 
       <span className="text-terminal-comment shrink-0">{label}</span>
 
-      <div className="relative flex-1 flex items-center min-w-0">
+      <div className="relative flex-1 basis-full flex items-center min-w-0">
         <span className={[
           'font-mono text-sm whitespace-pre-wrap break-all min-w-0 pointer-events-none',
           !disabled ? 'text-terminal-prompt' : 'text-muted-foreground',
@@ -117,7 +117,7 @@ export function TerminalInput({
 
       {/* Кнопки действий — Back ← и Enter ↵ */}
       {!disabled && (
-        <div className="flex items-center gap-2 shrink-0 basis-full sm:basis-auto">
+        <div className="flex items-center gap-2 shrink-0 sm:basis-auto sm:ml-auto">
           {/* Back ← — показываем только если есть onBack */}
           {onBack && (
             <button
