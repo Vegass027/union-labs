@@ -4,7 +4,7 @@ import { AppError, ConflictError, NotFoundError } from '../../utils/errors'
 import type { User, UserRole } from '@agency/types'
 import type { RegisterInput } from './auth.schema'
 
-export async function registerUser(input: RegisterInput): Promise<{ requiresEmailConfirmation: boolean; user?: User }> {
+export async function registerUser(input: RegisterInput): Promise<{ requiresEmailConfirmation: boolean; user?: User; session?: unknown }> {
   const { email, password, role, fullName, phone } = input
 
   logger.info({ email, role }, 'Registering new user')
@@ -13,7 +13,12 @@ export async function registerUser(input: RegisterInput): Promise<{ requiresEmai
     email,
     password,
     options: {
-      data: { role, full_name: fullName, password_set: true },
+      data: {
+        role,
+        full_name: fullName,
+        phone: phone || null,
+        password_set: true,
+      },
     }
   })
 
@@ -26,33 +31,13 @@ export async function registerUser(input: RegisterInput): Promise<{ requiresEmai
     throw new AppError('Failed to create user', 500)
   }
 
-  // session = null означает что требуется подтверждение email
   if (!authData.session) {
     logger.info({ email }, 'Email confirmation required, waiting for user to confirm')
     return { requiresEmailConfirmation: true }
   }
 
-  // Email confirmation выключен — читаем пользователя сразу
-  await new Promise(resolve => setTimeout(resolve, 500))
-
-  const { data: userData, error: dbError } = await supabaseAdmin
-    .from('users')
-    .select('*')
-    .eq('id', authData.user.id)
-    .single()
-
-  if (dbError || !userData) {
-    logger.error({ error: dbError }, 'Failed to fetch user from public.users after trigger')
-    await supabaseAdmin.auth.admin.deleteUser(authData.user.id)
-    throw new AppError('Failed to create user profile', 500)
-  }
-
-  if (phone) {
-    await supabaseAdmin.from('users').update({ phone }).eq('id', authData.user.id)
-  }
-
   logger.info({ userId: authData.user.id, email, role }, 'User registered successfully')
-  return { requiresEmailConfirmation: false, user: userData }
+  return { user: authData.user as unknown as User, session: authData.session }
 }
 
 export async function logoutUser(accessToken: string): Promise<void> {
