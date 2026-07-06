@@ -37,7 +37,7 @@ export async function registerUser(input: RegisterInput): Promise<{ requiresEmai
   }
 
   logger.info({ userId: authData.user.id, email, role }, 'User registered successfully')
-  return { user: authData.user as unknown as User, session: authData.session }
+  return { requiresEmailConfirmation: false, user: authData.user as unknown as User, session: authData.session }
 }
 
 export async function logoutUser(accessToken: string): Promise<void> {
