@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 
 export default function SchemaCard() {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     let time = 0;
     const waveData = Array.from({ length: 8 }).map(() => ({
       value: Math.random() * 0.5 + 0.1,
@@ -13,20 +15,20 @@ export default function SchemaCard() {
       speed: Math.random() * 0.02 + 0.01
     }));
 
-    function resizeCanvas() {
+    const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-    }
+    };
 
-    function updateWaveData() {
+    const updateWaveData = () => {
       waveData.forEach(data => {
         if (Math.random() < 0.01) data.targetValue = Math.random() * 0.7 + 0.1;
         const diff = data.targetValue - data.value;
         data.value += diff * data.speed;
       });
-    }
+    };
 
-    function draw() {
+    const draw = () => {
       ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -53,12 +55,12 @@ export default function SchemaCard() {
       });
     }
 
-    function animate() {
+    const animate = () => {
       time += 0.02;
       updateWaveData();
       draw();
       requestAnimationFrame(animate);
-    }
+    };
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();

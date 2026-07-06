@@ -88,7 +88,7 @@ export function InputOTPSlot({
 export function InputOTPSeparator({
   className,
   ...props
-}: React.ComponentProps<"div">): React.ReactElement {
+}: Omit<React.ComponentProps<"div">, "ref">): React.ReactElement {
   return (
     <Separator
       className={cn(
