@@ -41,6 +41,9 @@ database/*.sql
 # Turbo
 .turbo
 
+# TypeScript incremental build cache
+*.tsbuildinfo
+
 # IDE
 .vscode/*
 !.vscode/settings.json
