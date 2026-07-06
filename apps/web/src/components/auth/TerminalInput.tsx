@@ -64,7 +64,7 @@ export function TerminalInput({
   return (
     <div
       className={[
-        'group flex items-center gap-2 text-sm font-mono transition-opacity duration-200',
+        'group flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-mono transition-opacity duration-200',
         disabled ? 'cursor-pointer' : 'cursor-text',
         // завершённые строки чуть приглушены, но не мёртвые
         isCompleted ? 'opacity-60 hover:opacity-90' : '',
@@ -84,7 +84,7 @@ export function TerminalInput({
 
       <div className="relative flex-1 flex items-center min-w-0">
         <span className={[
-          'font-mono text-sm whitespace-pre pointer-events-none',
+          'font-mono text-sm whitespace-pre-wrap break-all min-w-0 pointer-events-none',
           !disabled ? 'text-terminal-prompt' : 'text-muted-foreground',
         ].join(' ')}>
           {displayValue}
@@ -117,7 +117,7 @@ export function TerminalInput({
 
       {/* Кнопки действий — Back ← и Enter ↵ */}
       {!disabled && (
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0 basis-full sm:basis-auto">
           {/* Back ← — показываем только если есть onBack */}
           {onBack && (
             <button
